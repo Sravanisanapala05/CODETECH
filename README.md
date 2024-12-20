@@ -1,9 +1,9 @@
 # CODETECH
-NAME:SSravani
-COMPANY:CODTECH IT SOLUTIONS
-ID:CT12DS2917
-DOMAIN:Machine Learning
-DURATION:December - February
+**NAME:**SSravani
+**COMPANY:**CODTECH IT SOLUTIONS
+**ID:**CT12DS2917
+**DOMAIN:**Machine Learning
+**DURATION:**December - February
 
 Project Name: Housing Price Prediction with Linear Regression
 
