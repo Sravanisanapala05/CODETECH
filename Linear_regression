@@ -1,0 +1,47 @@
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error, r2_score
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Load the California Housing dataset instead of the Boston Housing dataset
+from sklearn.datasets import fetch_california_housing
+housing = fetch_california_housing()
+data = pd.DataFrame(housing.data, columns=housing.feature_names)
+data['MEDV'] = housing.target  # Adding target variable 'MEDV' similar to Boston Housing
+
+# Select relevant features (Adjust based on California Housing features)
+X = data[['MedInc', 'HouseAge', 'AveRooms']]  # Example feature selection for California Housing
+y = data['MEDV']
+
+# Split the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Create and train the linear regression model
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+# Make predictions and evaluate the model
+y_pred = model.predict(X_test)
+
+mse = mean_squared_error(y_test, y_pred)
+r2 = r2_score(y_test, y_pred)
+
+print(f'Mean Squared Error: {mse}')
+print(f'R-squared: {r2}')
+
+# Visualize the results using a line plot instead of scatter
+# Sort the data points for a cleaner line
+idx = np.argsort(y_test)
+y_test_sorted = y_test.iloc[idx]
+y_pred_sorted = y_pred[idx]
+
+plt.plot(y_test_sorted, y_pred_sorted, color='blue', label='Predicted')  # Plot predicted values
+plt.plot(y_test_sorted, y_test_sorted, color='red', linestyle='--', label='Actual')  # Plot actual values as a reference line
+
+plt.xlabel('Actual House Prices')
+plt.ylabel('Predicted House Prices')
+plt.title('Linear Regression: Actual vs. Predicted')
+plt.legend()  # Show legend to distinguish lines
+plt.show()
